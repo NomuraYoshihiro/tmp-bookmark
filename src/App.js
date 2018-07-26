@@ -8,15 +8,26 @@ class App extends Component {
     this.state = {
       title: '',
       url: '',
+      bookmarks: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.addBookmark = this.addBookmark.bind(this);
   }
 
   componentDidMount() {
     chrome.tabs.query({ active: true }, (tabs) => {
       const tab = tabs[0];
       this.setState({title: tab.title, url: tab.url});
+    });
+
+    chrome.storage.sync.get(['tmpBookmarks'], (result) => {
+      const bookmarks = result.tmpBookmarks;
+      if (bookmarks && bookmarks.length > 0) {
+        this.setState({ bookmarks });
+        console.log(bookmarks);
+        console.log('Value get');
+      }
     });
   }
 
@@ -26,17 +37,25 @@ class App extends Component {
   }
 
   addBookmark() {
-    console.log('add bookmark');
+    const { title, url, bookmarks } = this.state;
+    const newBookmarks = [...bookmarks, { title, url }];
+    chrome.storage.sync.set({ tmpBookmarks: newBookmarks }, () => {
+      console.log('Value is set');
+      this.setState({ bookmarks: newBookmarks });
+    });
   }
 
   render() {
-    const { title, url } = this.state;
-
+    const { title, url, bookmarks } = this.state;
+    console.log(bookmarks);
     return (
       <div className="App">
         <input type="text" value={title} onChange={this.handleChange} />
         <input type="text" defaultValue={url} />
         <button type="button" onClick={this.addBookmark}>追加</button>
+        {bookmarks.map((item) =>
+          <p>{item.title}</p>
+        )}
       </div>
     );
   }

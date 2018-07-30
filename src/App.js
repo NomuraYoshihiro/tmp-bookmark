@@ -1,6 +1,7 @@
 /*global chrome*/
 import React, { Component } from 'react';
 import AddBookmarkForm from './AddBookmarkForm';
+import Bookmarks from './Bookmarks';
 
 class App extends Component {
   constructor(props) {
@@ -34,11 +35,7 @@ class App extends Component {
     return (
       <div className="container">
         <AddBookmarkForm addBookmark={this.addBookmark} />
-        <div>
-          {bookmarks.map((item) =>
-            <p>{item.title}</p>
-          )}
-        </div>
+        <Bookmarks bookmarks={bookmarks} />
       </div>
     );
   }

@@ -44,14 +44,42 @@ class App extends Component {
   render() {
     const { title, url, bookmarks } = this.state;
     return (
-      <div>
-        <input type="text" value={title} onChange={this.handleChange} />
-        <input type="text" defaultValue={url} />
-        <button type="button" onClick={this.addBookmark}>追加</button>
-        {bookmarks.map((item) =>
-          <p>{item.title}</p>
-        )}
-      </div>
+      <React.Fragment>
+        <div className="field is-horizontal">
+          <div className="field-label is-small">
+            <label className="label">名前</label>
+          </div>
+          <div className="field-body">
+            <div className="field has-addons">
+              <div className="control">
+                <input className="input is-small" type="text" value={title} onChange={this.handleChange} />
+              </div>
+              <div className="control">
+                <button className="button is-primary is-small" type="button" onClick={this.addBookmark}>
+                  追加
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="field is-horizontal">
+          <div className="field-label is-small">
+            <label className="label">URL</label>
+          </div>
+          <div className="field-body">
+            <div className="field">
+              <div className="control">
+                <input className="input is-small" type="text" defaultValue={url} disabled />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          {bookmarks.map((item) =>
+            <p>{item.title}</p>
+          )}
+        </div>
+      </React.Fragment>
     );
   }
 }

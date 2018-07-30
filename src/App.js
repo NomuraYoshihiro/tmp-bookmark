@@ -24,8 +24,6 @@ class App extends Component {
       const bookmarks = result.tmpBookmarks;
       if (bookmarks && bookmarks.length > 0) {
         this.setState({ bookmarks });
-        console.log(bookmarks);
-        console.log('Value get');
       }
     });
   }
@@ -39,14 +37,12 @@ class App extends Component {
     const { title, url, bookmarks } = this.state;
     const newBookmarks = [...bookmarks, { title, url }];
     chrome.storage.sync.set({ tmpBookmarks: newBookmarks }, () => {
-      console.log('Value is set');
       this.setState({ bookmarks: newBookmarks });
     });
   }
 
   render() {
     const { title, url, bookmarks } = this.state;
-    console.log(bookmarks);
     return (
       <div>
         <input type="text" value={title} onChange={this.handleChange} />

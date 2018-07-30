@@ -1,6 +1,5 @@
 /*global chrome*/
 import React, { Component } from 'react';
-import './App.css';
 
 class App extends Component {
   constructor(props) {
@@ -49,7 +48,7 @@ class App extends Component {
     const { title, url, bookmarks } = this.state;
     console.log(bookmarks);
     return (
-      <div className="App">
+      <div>
         <input type="text" value={title} onChange={this.handleChange} />
         <input type="text" defaultValue={url} />
         <button type="button" onClick={this.addBookmark}>追加</button>

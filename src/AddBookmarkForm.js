@@ -32,13 +32,14 @@ class AddBookmarkForm extends Component {
 
   render() {
     const { title, url } = this.state;
+    const fieldBodyStyle = { flexGrow: 10 };
     return (
-      <React.Fragment>
+      <div style={{width: '100%'}}>
         <div className="field is-horizontal">
           <div className="field-label is-small">
             <label className="label">名前</label>
           </div>
-          <div className="field-body">
+          <div className="field-body" style={fieldBodyStyle}>
             <div className="field has-addons">
               <div className="control">
                 <input className="input is-small" type="text" value={title} onChange={this.handleChange} />
@@ -55,7 +56,7 @@ class AddBookmarkForm extends Component {
           <div className="field-label is-small">
             <label className="label">URL</label>
           </div>
-          <div className="field-body">
+          <div className="field-body" style={fieldBodyStyle}>
             <div className="field">
               <div className="control">
                 <input className="input is-small" type="text" defaultValue={url} disabled />
@@ -63,7 +64,7 @@ class AddBookmarkForm extends Component {
             </div>
           </div>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

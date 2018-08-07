@@ -12,6 +12,7 @@ class App extends Component {
 
     this.addBookmark = this.addBookmark.bind(this);
     this.removeAll = this.removeAll.bind(this);
+    this.remove = this.remove.bind(this);
   }
 
   componentDidMount() {
@@ -36,12 +37,23 @@ class App extends Component {
     this.setState({ bookmarks: [] });
   }
 
+  remove(bookmark) {
+    const newBookmarks = this.state.bookmarks;
+    const index = newBookmarks.findIndex(x => x.url === bookmark.url);
+    if (index >= 0) {
+      newBookmarks.splice(index, 1);
+      chrome.storage.sync.set({ tmpBookmarks: newBookmarks }, () => {
+        this.setState({ bookmarks: newBookmarks });
+      });
+    }
+  }
+
   render() {
     const bookmarks = this.state.bookmarks;
     return (
       <div className="container">
-        <AddBookmarkForm addBookmark={this.addBookmark} />
-        <Bookmarks bookmarks={bookmarks} removeAll={this.removeAll} />
+        <AddBookmarkForm bookmarks={bookmarks} addBookmark={this.addBookmark} />
+        <Bookmarks bookmarks={bookmarks} remove={this.remove} removeAll={this.removeAll} />
       </div>
     );
   }

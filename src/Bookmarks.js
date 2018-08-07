@@ -18,8 +18,8 @@ class Bookmarks extends Component {
     this.props.removeAll();
   }
 
-  handleRemove() {
-    this.props.remove();
+  handleRemove(bookmark) {
+    this.props.remove(bookmark);
   }
 
   render() {
@@ -57,7 +57,11 @@ class Bookmarks extends Component {
             >
               {item.title}
             </a>
-            <span className="delete is-small" style={deleteIconStyle}></span>
+            <span
+              className="delete is-small"
+              style={deleteIconStyle}
+              onClick={() => this.handleRemove(item)}
+            ></span>
           </div>
         )}
       </div>

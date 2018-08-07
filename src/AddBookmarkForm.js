@@ -27,7 +27,15 @@ class AddBookmarkForm extends Component {
 
   add() {
     const { title, url } = this.state;
+    if (this.isExist(url)) { return; }
+
     this.props.addBookmark(title, url);
+  }
+
+  isExist(url) {
+    const currentUrl = this.state.url;
+    const index = this.props.bookmarks.findIndex(x => x.url === currentUrl);
+    return index >= 0
   }
 
   render() {
@@ -45,7 +53,12 @@ class AddBookmarkForm extends Component {
                 <input className="input is-small" type="text" value={title} onChange={this.handleChange} />
               </div>
               <div className="control">
-                <button className="button is-primary is-small" type="button" onClick={this.add}>
+                <button
+                  className="button is-primary is-small"
+                  type="button"
+                  onClick={this.add}
+                  disabled={this.isExist(url)}
+                >
                   追加
                 </button>
               </div>

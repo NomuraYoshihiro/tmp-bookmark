@@ -5,6 +5,7 @@ class Bookmarks extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleAllRemove = this.handleAllRemove.bind(this);
   }
 
   handleClick(e) {
@@ -12,10 +13,20 @@ class Bookmarks extends Component {
     chrome.tabs.create({url: e.target.href});
   }
 
+  handleAllRemove() {
+    this.props.removeAll();
+  }
+
+
   render() {
     const bookmarks = this.props.bookmarks;
     const bookmarkListStyle = { marginTop: '20px', marginLeft: '20px' };
     const menuLabelStyle = { marginBottom: 0 };
+    const clearButtonStyle = {
+      fontSize: '8px',
+      fontWeight: 'bold',
+      marginTop: '2px',
+    };
     const linkStyle = {
       width: '100%',
       overflow: 'hidden',
@@ -26,7 +37,10 @@ class Bookmarks extends Component {
 
     return (
       <div style={bookmarkListStyle}>
-        <p className="menu-label" style={menuLabelStyle}>一時ブックマーク</p>
+        <span className="menu-label" style={menuLabelStyle}>一時ブックマーク</span>
+        <span className="button is-danger" style={clearButtonStyle} onClick={this.handleAllRemove}>
+          全消去
+        </span>
         <ul>
           {bookmarks.map((item) =>
             <li>

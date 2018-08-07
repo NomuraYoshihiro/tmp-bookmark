@@ -6,6 +6,7 @@ class Bookmarks extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.handleAllRemove = this.handleAllRemove.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
   handleClick(e) {
@@ -17,6 +18,9 @@ class Bookmarks extends Component {
     this.props.removeAll();
   }
 
+  handleRemove() {
+    this.props.remove();
+  }
 
   render() {
     const bookmarks = this.props.bookmarks;
@@ -28,12 +32,14 @@ class Bookmarks extends Component {
       marginTop: '2px',
     };
     const linkStyle = {
-      width: '100%',
+      width: '90%',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       display: 'inline-block',
       textAlign: 'left',
     };
+
+    const deleteIconStyle = { verticalAlign: 'middle' };
 
     return (
       <div style={bookmarkListStyle}>
@@ -41,20 +47,19 @@ class Bookmarks extends Component {
         <span className="button is-danger" style={clearButtonStyle} onClick={this.handleAllRemove}>
           全消去
         </span>
-        <ul>
-          {bookmarks.map((item) =>
-            <li>
-              <a
-                className="button is-text is-small is-fullwidth"
-                style={linkStyle}
-                href={item.url}
-                onClick={this.handleClick}
-              >
-                {item.title}
-              </a>
-            </li>
-          )}
-        </ul>
+        {bookmarks.map((item) =>
+          <div>
+            <a
+              className="button is-text is-small is-fullwidth"
+              style={linkStyle}
+              href={item.url}
+              onClick={this.handleClick}
+            >
+              {item.title}
+            </a>
+            <span className="delete is-small" style={deleteIconStyle}></span>
+          </div>
+        )}
       </div>
     );
   }

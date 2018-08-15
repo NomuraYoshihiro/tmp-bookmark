@@ -54,7 +54,7 @@ class AddBookmarkForm extends Component {
               </div>
               <div className="control">
                 <button
-                  className="button is-primary is-small"
+                  className="button is-primary is-small is-rounded"
                   type="button"
                   onClick={this.add}
                   disabled={this.isExist(url)}

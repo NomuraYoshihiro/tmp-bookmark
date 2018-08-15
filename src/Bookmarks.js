@@ -60,7 +60,7 @@ class Bookmarks extends Component {
 
     return (
       <div style={bookmarkListStyle}>
-        <h1 className="title is-6" style={headingStyle}>一時ブックマーク</h1>
+        <h1 className="title is-6" style={headingStyle}>ブックマーク</h1>
         <span className="button is-danger" style={clearButtonStyle} onClick={this.handleAllRemove}>
           全消去
         </span>

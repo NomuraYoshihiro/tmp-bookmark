@@ -50,7 +50,7 @@ class AddBookmarkForm extends Component {
           <div className="field-body" style={fieldBodyStyle}>
             <div className="field has-addons">
               <div className="control">
-                <input className="input is-small" type="text" value={title} onChange={this.handleChange} />
+                <input className="input is-small is-rounded" type="text" value={title} onChange={this.handleChange} />
               </div>
               <div className="control">
                 <button
@@ -72,7 +72,7 @@ class AddBookmarkForm extends Component {
           <div className="field-body" style={fieldBodyStyle}>
             <div className="field">
               <div className="control">
-                <input className="input is-small" type="text" defaultValue={url} disabled />
+                <input className="input is-small is-rounded" type="text" defaultValue={url} disabled />
               </div>
             </div>
           </div>

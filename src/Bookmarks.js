@@ -1,12 +1,23 @@
 /*global chrome*/
 import React, { Component } from 'react';
+import {DebounceInput} from 'react-debounce-input';
 
 class Bookmarks extends Component {
   constructor(props) {
     super(props);
+
+    this.state = { keyword: '', bookmarks: props.bookmarks };
+
     this.handleClick = this.handleClick.bind(this);
     this.handleAllRemove = this.handleAllRemove.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const keyword = this.state.keyword;
+    const newBookmarks = search(keyword, nextProps.bookmarks);
+    this.setState({ bookmarks: newBookmarks });
   }
 
   handleClick(e) {
@@ -22,10 +33,16 @@ class Bookmarks extends Component {
     this.props.remove(bookmark);
   }
 
+  handleSearch(event) {
+    const keyword = event.target.value.trim();
+    const newBookmarks = search(keyword, this.props.bookmarks);
+    this.setState({ keyword, bookmarks: newBookmarks });
+  }
+
   render() {
-    const bookmarks = this.props.bookmarks;
+    const headingStyle = { display: 'inline', marginBottom: 0 };
     const bookmarkListStyle = { marginTop: '20px', marginLeft: '20px' };
-    const menuLabelStyle = { marginBottom: 0 };
+    const searchFieldStyle = { marginTop: '10px' };
     const clearButtonStyle = {
       fontSize: '8px',
       fontWeight: 'bold',
@@ -43,11 +60,26 @@ class Bookmarks extends Component {
 
     return (
       <div style={bookmarkListStyle}>
-        <span className="menu-label" style={menuLabelStyle}>一時ブックマーク</span>
+        <h1 className="title is-6" style={headingStyle}>一時ブックマーク</h1>
         <span className="button is-danger" style={clearButtonStyle} onClick={this.handleAllRemove}>
           全消去
         </span>
-        {bookmarks.map((item) =>
+
+        <div className="field">
+          <div className="control">
+            <DebounceInput
+              type="text"
+              minLength={1}
+              debounceTimeout={300}
+              onChange={this.handleSearch}
+              style={searchFieldStyle}
+              className="input is-small is-rounded"
+              placeholder="検索"
+            />
+          </div>
+        </div>
+
+        {this.state.bookmarks.map((item) =>
           <div>
             <a
               className="button is-text is-small is-fullwidth"
@@ -67,6 +99,11 @@ class Bookmarks extends Component {
       </div>
     );
   }
+}
+
+function search(keyword, list) {
+  if (keyword.length === 0) { return list; }
+  return list.filter((item => item.title.indexOf(keyword) > -1));
 }
 
 export default Bookmarks;

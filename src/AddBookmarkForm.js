@@ -45,7 +45,7 @@ class AddBookmarkForm extends Component {
       <div style={{width: '100%'}}>
         <div className="field is-horizontal">
           <div className="field-label is-small">
-            <label className="label">名前</label>
+            <label className="label">name</label>
           </div>
           <div className="field-body" style={fieldBodyStyle}>
             <div className="field has-addons">
@@ -59,7 +59,7 @@ class AddBookmarkForm extends Component {
                   onClick={this.add}
                   disabled={this.isExist(url)}
                 >
-                  追加
+                  Add
                 </button>
               </div>
             </div>

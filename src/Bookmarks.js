@@ -40,7 +40,11 @@ class Bookmarks extends Component {
   }
 
   render() {
-    const headingStyle = { display: 'inline', marginBottom: 0 };
+    const headingStyle = {
+      display: 'inline',
+      marginBottom: 0,
+      marginRight: '10px'
+    };
     const bookmarkListStyle = { marginTop: '20px', marginLeft: '20px' };
     const searchFieldStyle = { marginTop: '10px' };
     const clearButtonStyle = {
@@ -60,9 +64,9 @@ class Bookmarks extends Component {
 
     return (
       <div style={bookmarkListStyle}>
-        <h1 className="title is-6" style={headingStyle}>ブックマーク</h1>
+        <h1 className="title is-6" style={headingStyle}>Bookmark List</h1>
         <span className="button is-danger" style={clearButtonStyle} onClick={this.handleAllRemove}>
-          全消去
+          All Clear
         </span>
 
         <div className="field">
@@ -74,7 +78,7 @@ class Bookmarks extends Component {
               onChange={this.handleSearch}
               style={searchFieldStyle}
               className="input is-small is-rounded"
-              placeholder="検索"
+              placeholder="Search"
             />
           </div>
         </div>

@@ -15,7 +15,7 @@ class App extends Component {
     this.remove = this.remove.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     chrome.storage.sync.get(['tmpBookmarks'], (result) => {
       const bookmarks = result.tmpBookmarks;
       if (bookmarks && bookmarks.length > 0) {
